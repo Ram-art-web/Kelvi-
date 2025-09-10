@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Quiz</title>
+</head>
+<body>
+  <h2>Simple Quiz App</h2>
+  <div id="quiz"></div>
+  <button onclick="nextQuestion()">Next</button>
+  <p id="result"></p>
+
+  <script>
+    const questions = [
+      {
+        question: "எப்படி இருக்க கருப்பு?",
+        options: ["நல்லா இருக்கேன்", "ஏன் கேக்குற", "நல்லா இல்லை ", "ஏதோ"],
+        answer: "நல்லா இருக்கேன்"
+      },
+      {
+        question: "கருப்பசாமியின் பட்ட பெயர்?",
+        options: ["ஸ்டாலின்", "முக்தார்","தற்குறி ","உதயநிதி "],
+        answer: "முக்தார்"
+      }
+    ];
+
+    let index = 0, score = 0;
+
+    function loadQuestion() {
+      let q = questions[index];
+      let quizDiv = document.getElementById("quiz");
+      quizDiv.innerHTML = `<p>${q.question}</p>` +
+        q.options.map(opt => 
+          `<button onclick="checkAnswer('${opt}')">${opt}</button>`
+        ).join("<br>");
+    }
+
+    function checkAnswer(ans) {
+      if(ans === questions[index].answer) score++;
+      document.getElementById("result").innerText = "Score: " + score;
+    }
+
+    function nextQuestion() {
+      index++;
+      if(index < questions.length) loadQuestion();
+      else document.getElementById("quiz").innerHTML = "<h3>Final Score: " + score + "</h3>";
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
